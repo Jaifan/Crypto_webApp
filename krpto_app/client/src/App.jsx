@@ -1,10 +1,18 @@
+import { Navbar , Welcome , Service , Transaction , Footer  } from "./components"
 
-const App= ()=> {
-
+const   App= ()=>   {
   return (
-    <h1  className="text-3xl font-bold underline">
-        Jaifan Zakaria
-    </h1>
+   
+    <div className="min-h-screen">
+      <div className="gradiant-bg-welcome">
+        <Navbar />
+        <Welcome />
+      </div>
+      <Service />
+      <Transaction />
+      <Footer />
+    </div>    
+
   )
 }
 
