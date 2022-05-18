@@ -46,7 +46,6 @@ const Navbar = () => {
             </ul>
           )
 
-          
           }
 
 
