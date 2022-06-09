@@ -26,9 +26,23 @@ const Welcome = () => {
     sendTransaction();
   };
 
+  const connectWallet = () => {
+
+  }
+
 
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-400 to-blue-500">
+
+      <button
+        type="button"
+        onClick={connectWallet}
+        className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+        >
+        <p className="text-white text-base font-semibold">
+           Connect Wallet
+        </p>
+      </button>
 
       <div className="">
         <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card bg-gradient-to-r from-pink-500 to-yellow-500 ">
