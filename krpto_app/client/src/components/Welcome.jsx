@@ -60,7 +60,7 @@ const Welcome = () => {
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  0000..0000
+                  { `${currentAccount.slice(0,5)}.....${currentAccount.slice(currentAccount.length-5)}`}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum
