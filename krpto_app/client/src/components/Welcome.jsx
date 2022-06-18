@@ -1,7 +1,7 @@
 
 import { SiEthereum } from "react-icons/si";
-import { BsInfoCircle } from "react-icons/bs";
-
+import { BsInfoCircle, BsLayoutSidebarReverse } from "react-icons/bs";
+import Loader from "./Loader";
 import React , {useContext} from "react";
 import { TransactionContext } from "../context/TransactionContext";
 
@@ -19,7 +19,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Welcome = () => {
 
-  const { connectWallet , currentAccount, formData, sendTransaction, handleChange} = useContext(TransactionContext);
+  const { connectWallet , currentAccount, formData, sendTransaction, handleChange , Isloading} = useContext(TransactionContext);
   console.log("Connect Account list : " + currentAccount);
 
   const handleSubmit = (e) => {
@@ -60,7 +60,7 @@ const Welcome = () => {
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  { `${currentAccount.slice(0,5)}.....${currentAccount.slice(currentAccount.length-5)}`}
+                  { currentAccount && `${currentAccount.slice(0,5)}.....${currentAccount.slice(currentAccount.length-5)}` }
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum
@@ -79,7 +79,8 @@ const Welcome = () => {
 
         <div className="h-[1px] w-full bg-gray-400 my-2" />
 
- 
+      {Isloading ? <Loader /> :
+      (
       <button
       type="button"
       onClick={handleSubmit}
@@ -87,6 +88,8 @@ const Welcome = () => {
       >
         Send now
       </button>
+
+      )}
               
     </div>
   </div>
