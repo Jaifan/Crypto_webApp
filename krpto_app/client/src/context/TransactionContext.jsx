@@ -27,6 +27,7 @@ export const TransactionProvider = ({children}) => {
     const [isloading , setIsloading] = useState(false);
     const [transactionCount , setTransactionCount] = useState(localStorage.getItem("transactiocount"));
     const [transactions, setTransactions] = useState([]);
+    const [trans, setTrans] = useState([]);
 
 
     const handleChange = (e, name)=> {
@@ -39,7 +40,8 @@ export const TransactionProvider = ({children}) => {
             const transactionsContract = getEthereumContract();
     
             const availableTransactions = await transactionsContract.getAllTransactions();
-            const structuredTransactions = availableTransactions.map((transaction) => ({
+            const structuredTransactions = availableTransactions.map((transaction,i) => ({
+                id: i,
               addressTo: transaction.receiver,
               addressFrom: transaction.sender,
               timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
@@ -47,11 +49,11 @@ export const TransactionProvider = ({children}) => {
               keyword: transaction.keyword,
               amount: parseInt(transaction.amount._hex) / (10 ** 18),
             }));
-
-            setTransactions(structuredTransactions[0])
-
-            console.log(transactions)
             
+            setTransactions(structuredTransactions);
+            trans.push(structuredTransactions);
+
+            console.log(trans[0]);
 
           } else {
             console.log("Ethereum is not present");
@@ -167,6 +169,7 @@ export const TransactionProvider = ({children}) => {
             sendTransaction,
             handleChange,
             transactions,
+            trans,
             isloading
         }}>
 

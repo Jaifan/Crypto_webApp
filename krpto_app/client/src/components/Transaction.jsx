@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {TransactionContext} from "../context/TransactionContext";
 import useFetch from "../hooks/useFatch"
 
@@ -19,10 +19,10 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, message, keyword, 
   >
     <div className="flex flex-col items-center w-full mt-3">
       <div className="display-flex justify-start w-full mb-6 p-2">
-        <a href={`https://ropsten.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
+        <a href={`https://rinkeby.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
           <p className="text-white text-base">From: {`${addressFrom.slice(0,5)}.....${addressFrom.slice(addressFrom.length-5)}` }</p>
         </a>
-        <a href={`https://ropsten.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
+        <a href={`https://rinkeby.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
           <p className="text-white text-base">To: {`${addressTo.slice(0,5)}.....${addressTo.slice(addressTo.length-5)}` }</p>
         </a>
         <p className="text-white text-base">Amount: {amount} ETH</p>
@@ -48,7 +48,18 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, message, keyword, 
 
 
 const Transaction = () => {
-  const {currentAccount , transacations} = useContext(TransactionContext);
+  const {currentAccount , trans} = useContext(TransactionContext);
+
+  const obj = JSON.stringify(trans);
+  console.log(obj);
+
+  
+  const history = (a) =>
+        trans.map((transaction, i)=> (
+        <TransactionCard key={i} {...transaction[a]} /> 
+      ))
+    
+
 
   return (
     <div className="flex w-full justify-center items-center 2xl:px-20 bg-gradient-to-r from-green-400 to-blue-500">
@@ -61,10 +72,9 @@ const Transaction = () => {
         )}
 
         <div className="flex flex-wrap justify-center items-center mt-10">
-            { currentAccount && dummyData.map((transaction, i)=> (
-              
-              <TransactionCard key={i} {...transaction} />
-            ))}
+            {currentAccount && history(0)}
+            {currentAccount && history(1)}
+            {currentAccount && history(2)}
         </div>
       </div>
     </div>
